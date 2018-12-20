@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Shy Buttons</title>
+</head>
+<style >
+	#container {
+		margin-top: 100px;
+		display: flex;
+	    justify-content: space-evenly;
+	}
+
+	/* COMMON */
+	.button, #button--no-js {
+		width: 250px;
+		height: 120px;
+		display: inline-block;
+	    position: relative;
+	}
+	.button {
+		border: 1px solid;
+		border-radius: 5px;
+		padding: 20px;
+		padding-right: 25px;
+	    box-sizing: border-box;
+	    background-color: #d3e2f2;
+	}
+	.button.hidden {
+		display: none;
+	}
+	.button h4 {
+	    margin: 0;
+	    margin-bottom: 5px;
+	}
+	/* tooltip */
+	.button__tooltip {
+	    align-items: center;
+		background-color: #d3e2f2;
+		border: 1px solid;
+		border-radius: 5px;
+
+		padding: 5px 15px;
+	    box-sizing: border-box;
+
+	    display: flex;
+	    height: 50px;
+		position: absolute;
+	    top: -64px;
+	    right: 0;
+	    max-width: 200px;
+
+	    opacity: 0;
+	    transition: opacity 100ms ease-in;
+	}
+	#button--no-js:hover .button__tooltip,
+	.button:hover .button__tooltip {
+		opacity: 1;
+	}
+	.button__tooltip:after,
+	.button__tooltip:before {
+		top: 100%;
+		left: 10px;
+		border: solid transparent;
+		content: "";
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+	}
+	.button__tooltip:after {
+		border-color: transparent;
+		border-left-width: 14px;
+		border-right-width: 14px;
+		border-top: 8px solid #d3e2f2;
+	}
+	.button__tooltip:before {
+		border-left-width: 15px;
+		border-right-width: 15px;
+		border-top: 9px solid black;
+		margin-left: -1px;
+	}
+	/* close button */
+	.button__close {
+		cursor: pointer;
+		background-color: gray;
+		color: white;
+		padding: 5px;
+		position: absolute;
+		right: 5px;
+		top: 5px;
+	}
+
+	/* SPECIFIC */
+	#button--no-js [type=radio]:checked ~ * {
+		display: none;
+	}
+	#button--no-js .button__close {
+		z-index: 100;
+	}
+</style>
+<body>
+
+	<div id="container">
+		<span id="button--no-js">
+			<input id="button--no-js__input" type="radio" hidden />
+			<label for="button--no-js__input"
+			       class="button__close">
+				[x]
+			</label>
+			<span class="button" onclick="alert('Well, not all things can be done with css only')">
+				<span class="button__tooltip">
+					*giggles shyly*
+				</span>
+				<h4>I'm a shy no-js button.</h4>
+				Plase, do not tickly me with the mouse.
+			</span>
+		</span>
+
+		<span id="button--js"
+		      class="button"
+		      onclick="alert('Dakka dakka dakka!')"
+		      >
+			<span class="button__tooltip">
+				yamete kudasaaai >_>, bbakka~
+			</span>
+			<span class="button__close"
+			      onclick="hideButton(this, event)">
+				[x]
+			</span>
+			<h4>I'm a shinny js button.</h4>
+			I'm not afraid your clicks or something.
+		</span>
+	</div>
+<script>
+
+function hideButton(closeButton, event) {
+	event.stopPropagation();
+	const button = closeButton.parentElement;
+	button.classList.add('hidden');
+}
+
+</script>
+</body>
+</html>

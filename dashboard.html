@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dashboard</title>
+</head>
+<body>
+<style>
+	body, html {
+		margin: 0;
+		height: 100%;
+	}
+
+	#container {
+		display: flex;
+		height: 100%;
+	}
+	#content {
+		background-color: #f3f7fb;
+		padding: 50px 20px 10px;
+		flex-grow: 1;
+	}
+	.card {
+		background: #fff;
+	    border-radius: 2px;
+	    display: inline-block;
+	    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	    padding: 20px 25px;
+	    line-height: 1.2;
+	}
+	/* ------------------- */
+	#sidebar {
+		flex-basis: 300px;
+		flex-shrink: 0;
+		background-color: #232d3a;
+		color: #d4dae3;
+	    font-family: sans-serif;
+		padding-top: 30px;
+	}
+	#sidebar h2 {
+		margin: 10px 20px 5px;
+	}
+	#sidebar ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		position: relative;
+		z-index: 10;
+	}
+	.icon {
+		font-style: normal;
+		display: inline-flex;
+		width: 20px;
+		height: 20px;
+		align-items: center;
+	    justify-content: center;
+	}
+	.label {
+	    padding: 2px 0;
+	    border-radius: 2px;
+	    font-size: 12px;
+	    width: 40px;
+	    text-align: center;
+	}
+	.label.blue {
+		background-color: #5bbfd6;
+	}
+	.label.yellow {
+		background-color: #f5b857;
+	}
+	.label.red {
+		background-color: #ee5d70;
+	}
+
+	#sidebar a {
+		color: #d4dae3;
+		text-decoration: none;
+		padding: 10px 50px 10px 30px;
+        box-sizing: border-box;
+		width: 100%;
+		cursor: pointer;
+		display: inline-flex;
+	    align-items: center;
+	    position: relative;
+	    z-index: 1000;
+	}
+	#sidebar a .icon {
+		margin-right: 5px;
+	}
+	#sidebar a .label {
+		margin-left: auto;
+	}
+	#sidebar li {
+		position: relative;
+	}
+	#sidebar li:after {
+		position: absolute;
+		background-color: #5298e1;
+		content: '';
+		height: 100%;
+		left: 0;
+		top: 0;
+		z-index: 1;
+		width: 0%;
+		opacity: 0;
+		transition: opacity 100ms ease-in-out;
+	}
+	#sidebar li:not(.active):hover:after {
+		width: 100%;
+		opacity: 1;
+	}
+	#sidebar li:not(.active):hover a {
+		color: white;
+	}
+
+	#sidebar > ul > li {
+		max-height: 40px;
+		overflow: hidden;
+		transition: max-height 10ms ease-in;
+		position: relative;
+	}
+	#sidebar > ul > li > ul:before,
+	#sidebar > ul > li > ul a:before {
+		content: '›';
+		font-size: 20px;
+	    font-weight: bolder;
+	}
+	#sidebar > ul > li > ul:before {
+		position: absolute;
+	    right: 30px;
+	    top: -32px;
+	    transition: all 200ms ease;
+	}
+	#sidebar > ul > li > ul a:before {
+		margin-right: 5px;
+	}
+
+	#sidebar > ul > li > ul > li {
+		opacity: 0;
+		background-color: #1e2531;
+		transition: opacity 100ms ease 10ms;
+	}
+
+	#sidebar > ul > li.active > a {
+		background-color: rgba(0, 0, 0, .35);
+	}
+	#sidebar > ul > li.active:after {
+		transition: width 200ms ease-in;
+		width: 2px;
+		opacity: 1;
+		z-index: 10001;
+	}
+
+	#sidebar > ul > li.expanded {
+		box-shadow: inset 0 4px 9px -6px rgba(0,0,0,.3);
+	    max-height: 1000px;
+	    transition: max-height 400ms ease-in-out;
+	}
+	#sidebar > ul > li.expanded > ul {
+		box-shadow: inset 0 -4px 9px -6px rgba(0,0,0,.3);
+	}
+	#sidebar > ul > li.expanded > ul:before {
+		transform: rotateZ(90deg);
+	}
+	#sidebar > ul > li.expanded > ul > li {
+		opacity: 1;
+	}
+	#sidebar > ul > li.expanded > ul > li.active > a {
+		color: #5298e1;
+	}
+
+
+</style>
+
+	<div id="container">
+		<div id="sidebar">
+			<h2> Navigation </h2>
+			<ul>
+				<li>
+					<a>
+						<i class="icon">✲</i>
+						Dashboard
+					</a>
+
+					<ul>
+						<li> <a data-content="page1"> Default </a> </li>
+						<li> <a data-content="page2"> CRM </a> </li>
+						<li> <a data-content="page3"> Analytics
+							     <span class="label blue">old</span>
+							 </a> </li>
+					</ul>
+				</li>
+
+				<li>
+					<a>
+						<i class="icon">♫</i>
+						Page layouts
+						<span class="label yellow">new</span>
+					</a>
+					<ul>
+						<li> <a> L1 </a> </li>
+						<li> <a> L2 </a> <li>
+						<li> <a> L3 </a> </li>
+					</ul>
+				</li>
+
+				<li>
+					<a data-content="page4"> <i class="icon">≡</i>
+						Navigation
+					</a>
+				</li>
+
+				<li>
+					<a>
+						<i class="icon">☃</i>
+						Widget
+						<span class="label red">100+</span>
+					</a>
+					<ul>
+						<li> <a data-content="page5"> W1 </a> </li>
+						<li> <a> W2 </a> <li>
+						<li> <a> W3 </a> </li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+		<div id="content">
+			<div class="card" id="card"> </div>
+		</div>
+	</div>
+
+	<temalate id="page1">
+		I lie on the couch with my eyes open and I can't get to sleep. I remember the old woman with the clock whom I saw today in the yard and feel pleased that there were no hands on her clock. Only the other day in the second-hand shop I saw a revolting kitchen clock and its hands were made in the form of a knife and fork.
+	</temalate>
+
+	<temaplet id="page2">
+		Oh, my God! I still haven't turned off the electric oven! I jump up and turn it off, and then I lie down again on the couch and try to get to sleep. I close my eyes. I don't feel sleepy. The spring sun is shining in through the window, straight on to me. I start to feel hot. I get up and sit down in the armchair by the window.
+	</temaplet>
+
+	<template id="page3">
+		Now I feel sleepy but I am not going to sleep. I get hold of a piece of paper and a pen and I am going to write. I feel within me a terrible power. I thought it all over as long ago as yesterday. It will be the story about a miracle worker who is living in our time and who doesn't work any miracles. He knows that he is a miracle worker and that he can perform any miracle, but he doesn't do so. He is thrown out of his flat and he knows that he only has to wave a finger and the flat will remain his, but he doesn't do this; he submissively moves out of the flat and lives out of town in a shed. He is capable of turning this shed into a fine brick house, but he doesn't do this; he carries on living in the shed and eventually dies, without having done a single miracle in the whole of his life.
+	</template>
+
+	<template id="page4">
+		I just sit and rub my hands with glee. Sakerdon Mikhailovich will burst with envy. He thinks that I am beyond writing anything of genius. Now then, now then, to work! Away with any kind of sleep and laziness! I shall write for eighteen hours straight off!
+	</template>
+
+	<template id="page5">
+		I am shaking all over with impatience. I am not able to think out what has to be done: I needed to take a pen and a piece of paper, but I grabbed various objects, not at all those that I needed. I ran about the room: from the window to the table, from the table to the oven, from the oven again to the table, then to the divan and again to the window. I was gasping from the flame which was ablaze in my breast. It's only five o'clock now. The whole day is ahead, and the evening, and all night is . . .
+	</template>
+
+<script type="text/javascript">
+
+const links = document.querySelectorAll('#sidebar li > a');
+const card = document.getElementById('card');
+
+links.forEach((link) => {
+	link.onclick = function () {
+		const li = this.parentElement;
+		const neightbors = li.parentElement.children;
+		Array.from(neightbors).forEach(l => {
+			if (l.isSameNode(li) === false) {
+				l.classList.remove('active');
+				l.classList.remove('expanded');
+			}
+		});
+
+		const subLinks = li.querySelector('ul');
+		if (!subLinks) {
+			const contentId = this.getAttribute('data-content');
+			const content = document.getElementById(contentId);
+			card.innerHTML = content ? content.innerHTML : '¯\_(ツ)_/¯';
+		}
+
+		if (li.classList.contains('active') === false) {
+			li.classList.add('active');
+			if (subLinks) {
+				subLinks.querySelector('li > a').onclick();
+			}
+		}
+
+		li.classList.toggle('expanded');
+	};
+});
+
+links[0].onclick();
+
+
+</script>
+</body>
+</html>

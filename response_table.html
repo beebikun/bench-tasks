@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Responsive Table</title>
+</head>
+<style>
+	table {
+		width: 100%;
+		border-collapse: collapse;
+	}
+	tr:nth-of-type(odd) {
+		background: #eee;
+	}
+	th {
+		background: #333;
+		color: white;
+		font-weight: bold;
+	}
+	td, th {
+		padding: 6px;
+		border: 1px solid #ccc;
+		text-align: left;
+	}
+
+	@media screen and (max-width: 800px) {
+	 	td, th {
+	  		display: block;
+	  	}
+	  	td:not(:last-child), th:not(:last-child) {
+	  		border-bottom: none;
+	  	}
+	    tr:nth-of-type(odd) td:not(:first-child),
+	    tr:nth-of-type(odd) th:not(:first-child) {
+			border-top: none;
+		}
+	}
+
+
+</style>
+<body>
+
+	<table>
+		<tr>
+			<td>The First</td> <td>Developer</td> <td>Programmer</td>
+		</tr>
+		<tr>
+			<td>Another</td> <td>Person</td> <td>Developer Too</td>
+		</tr>
+		<tr>
+			<td>The third</td> <td>Person</td> <td>Manager</td>
+		</tr>
+	</table>
+
+
+</body>
+</html>
